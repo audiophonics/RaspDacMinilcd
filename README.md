@@ -36,7 +36,7 @@ git clone http://github.com/audiophonics/RaspDacMinilcd
 ```
 * Enter directory.
 ```bash
-cd RaspDacMini
+cd RaspDacMinilcd
 ```
 * Each supported distribution has its own directory, enter the one corresponding to the distribution installed on your RaspDac Mini LCD. 
 ```bash
