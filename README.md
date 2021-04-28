@@ -18,7 +18,7 @@ This repository holds sources and methods for installing the specific hardware f
 
 * Some distros require the audio output to be already configured with the ES9038 driver to work. You should do this in your regular distribution interface **before** running any customization script.
 * In the same manner, the LCD display make use of the localui chromium browser to send data to its display.
-  * moOde has this option available by default which has to be enabled from the settings menu
+  * moOde has this option available by default which has to be enabled from the settings menu.
   * Volumio requires the *Touch Display plugin* to be installed and activated. It is best to install the Touch Display Plugin **prior** to this repo since it requires no additionnal configuration. You *can* run this installation script prior to installing the touchscreen pluggin, but you will then have to run the /apts_web_interface/ap_modules/lcd/kiosk_autoconfig.sh bash script afterwards to complete the configuration. You can also trigger the kiosk_autoconfig.sh script via http on the port 4150 if you already applied this repo to your Raspdac Mini LCD. The whole process is quite fast and needs only a couple minutes. 
   * On both moOde and Volumio you can use the 4150 port to rebuild and reconfigure the LCD driver if you want to mess up with the user configuration or the display itself.  
 * Remember your device must have network access to download dependencies.** This toolset is not designed for offline installation.
