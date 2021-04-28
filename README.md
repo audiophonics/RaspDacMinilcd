@@ -6,7 +6,7 @@ This repository holds sources and methods for installing the specific hardware f
 ## Currently supported : 
  
 ### Volumio
-* Installation of OLED Display
+* Installation of LCD Display
 * Installation of IR remote
 * Installation of aptswi (Tiny web interface with some custom option. It is also used as a server to pass the LCD display template to a Chromium instance).
 
