@@ -69,6 +69,6 @@ systemctl restart lcd
 
 # ---------------------------------------------------
 # Say something nice and exit
-echo "* End of installation : RaspDac Mini LCD Display - no reboot required"
+echo "* End of installation : RaspDac Mini LCD Display - reboot required"
 echo started at $start_time finished at "$(date +"%T")" >> install_log.txt
 exit 0
