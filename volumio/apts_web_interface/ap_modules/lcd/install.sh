@@ -17,6 +17,10 @@ if ! grep -q '%audiophonics ALL=(ALL) NOPASSWD: /bin/sh '${PWD}'/kiosk_autoconfi
 fi
 
 # ---------------------------------------------------
+# Configure kiosk
+bash kiosk_autoconfig.sh
+
+# ---------------------------------------------------
 # Say something nice and exit
 echo "* End of installation : LCD display server - no reboot required"
 echo started at $start_time finished at "$(date +"%T")" >> install_log.txt
