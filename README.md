@@ -29,7 +29,7 @@ sudo apt-get update
 
 * Download source files (this repository).
 ```bash
-git clone http://github.com/audiophonics/RaspDacMini
+git clone http://github.com/audiophonics/RaspDacMinilcd
 ```
 * Enter directory.
 ```bash
