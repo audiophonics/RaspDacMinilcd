@@ -1,4 +1,4 @@
-# RaspDac Mini lcd
+# RaspDac Mini LCD
 Toolset and sources file used for customizing RPI audio distributions with RaspDac Mini LCD  hardware support 
 
 This repository holds sources and methods for installing the specific hardware found in a RaspDac Mini LCD (display, remote control) and some utilities in a fresh distribution for audio playback on raspberry pi. 
@@ -35,7 +35,7 @@ git clone http://github.com/audiophonics/RaspDacMini
 ```bash
 cd RaspDacMini
 ```
-* Each supported distribution has its own directory, enter the one corresponding to the distribution installed on your RaspDac Mini. 
+* Each supported distribution has its own directory, enter the one corresponding to the distribution installed on your RaspDac Mini LCD. 
 ```bash
 # for Volumio
 cd volumio
@@ -49,5 +49,5 @@ sudo bash install.sh
 *most scripts deal with hardware configuration and will require you to reboot after completion. A successful script installation will explicitely notify you from terminal if a reboot is needed.*
 
 ## Install duration :
-Some scripts and core functionnalities automatically download and compile frameworks from source. This is due to the wide range of Linux flavors that are found across the audio distributions for raspberry pi and the different rate at which updates happen. Since the defaults packages and libraries natively available on those systems can vary a lot, do not expect installation time to be consistent from one distribution to another. Installing OLED can take and up to 30 minutes on Volumio. 
+Some scripts and core functionnalities automatically download and compile frameworks from source. This is due to the wide range of Linux flavors that are found across the audio distributions for raspberry pi and the different rate at which updates happen. Since the defaults packages and libraries natively available on those systems can vary a lot, do not expect installation time to be consistent from one distribution to another. 
 
