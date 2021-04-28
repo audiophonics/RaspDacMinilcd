@@ -9,7 +9,7 @@ systemctl stop lcd &>/dev/null
 # ---------------------------------------------------
 # install C dependencies
 rm -r fbcp-ili9341 > /dev/null 2>> install_log.txt
-apt-get install -y build-essential cmake > /dev/null 2>> install_log.txt  &&
+apt-get install -y build-essential cmake libatomic1 > /dev/null 2>> install_log.txt  &&
 git clone https://github.com/juj/fbcp-ili9341.git > /dev/null 2>> install_log.txt &&
 cd fbcp-ili9341 > /dev/null 2>> install_log.txt &&
 mkdir build > /dev/null 2>> install_log.txt &&
