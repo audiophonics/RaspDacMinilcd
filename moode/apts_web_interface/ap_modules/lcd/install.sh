@@ -3,7 +3,7 @@ start_time="$(date +"%T")"
 echo "* Installing : LCD display server"
 echo "" > install_log.txt
 # ---------------------------------------------------
-# get socket io (version compatible with volumio)
+# get node & deps
 apt-get install -y nodejs npm
 npm install ws
 # ---------------------------------------------------
