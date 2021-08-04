@@ -57,13 +57,13 @@ sudo bash install.sh
 
 ## Troubleshooting : 
 
-Whether you are using Volumio or moOde, if anything goes wrong with your display (most likely after updating or changing the name of your device on the network). Start by opening the web interface on port 4150 ( http://192.168.xx.xx:4150 ) and run the *Auto-configure* utility (takes around 1 minute to complete). If that does not fix the issue, run the *Reinstall LCD driver* utility to automatically rebuild the driver (needs 2-3 minute to complete) and rerun the *Auto-configure* utility afterwards. That should fix most issues.
+Whether you are using Volumio or moOde, if anything goes wrong with your display (most likely after updating or changing the name of your device on the network). Start by opening the web interface on port 4150 (http://192.168.xx.xx:4150) and run the *Auto-configure* utility (takes around 1 minute to complete). If that does not fix the issue, run the *Reinstall LCD driver* utility to automatically rebuild the driver (needs 2-3 minute to complete) and rerun the *Auto-configure* utility afterwards. That should fix most issues.
 Here are some specific cases I have met before and their solution :
 
 * (moOde) white screen : go to moOde interface, open System Config / Local Display and make sure Local UI display is ON.
 * (Volumio) white screen : go to Volumio interface and maker sure Touch Display Plugin is installed and enabled.
 * (moOde) display showing wrong interface with small unreadable text  :  open port 4150 in a web browser and run the Auto-configure utility.
-* (moOde / Volumio) display showing a truncated chrome error message : open port 4150 in a web browser and run the Auto-configure utility.
+* (moOde / Volumio) display showing a truncated chrome error message : open port 4150 in a web browser and run the Auto-configure utility. You may have to reboot the RDM afterwards.
 
 ## Install duration :
 Some scripts and core functionnalities automatically download and compile frameworks from source. This is due to the wide range of Linux flavors that are found across the audio distributions for raspberry pi and the different rate at which updates happen. Since the defaults packages and libraries natively available on those systems can vary a lot, do not expect installation time to be consistent from one distribution to another. 
