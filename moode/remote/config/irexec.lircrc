@@ -1,0 +1,101 @@
+begin
+prog = irexec
+button = playright
+config = DISPLAY=:0 xset dpms force on; /usr/bin/mpc seek +3 &
+delay = 2
+repeat = 3
+end
+
+begin
+prog = irexec
+button = playleft
+config = DISPLAY=:0 xset dpms force on; /usr/bin/mpc seek -3 & 
+delay = 2
+repeat = 3
+end
+
+begin
+prog = irexec
+button = play
+config = DISPLAY=:0 xset dpms force on; /usr/bin/mpc toggle & 
+repeat = 0
+end
+
+begin
+prog = irexec
+button = input
+config = DISPLAY=:0 xset dpms force on; /usr/bin/apessq2m toggle_input & 
+repeat = 0
+end
+
+begin
+prog = irexec
+button = volplus
+config = DISPLAY=:0 xset dpms force on; /var/www/vol.sh -up 3 & 
+delay = 2
+repeat = 3
+end
+
+begin
+prog = irexec
+button = volminus
+config = DISPLAY=:0 xset dpms force on; /var/www/vol.sh -dn 3 & 
+delay = 2
+repeat = 3
+end
+
+begin
+prog = irexec
+button = poweroff
+config = DISPLAY=:0 xset dpms force on; sudo poweroff
+repeat = 0
+end
+
+begin
+prog = irexec
+button = ok
+config = DISPLAY=:0 xset dpms force on & 
+repeat = 0
+end
+
+begin
+prog = irexec
+button = mute
+config = DISPLAY=:0 xset dpms force on; /var/www/vol.sh mute & 
+repeat = 0
+end
+
+begin
+prog = irexec
+button = option
+config = DISPLAY=:0 xset dpms force on; /bin/apessq2m next_filter &
+repeat = 3
+end
+
+begin
+prog = irexec
+button = up
+config = DISPLAY=:0 xset dpms force on;  curl localhost:4150/ap-display/switch_view &
+repeat = 3
+end
+
+begin
+prog = irexec
+button = down
+config = DISPLAY=:0 xset dpms force on; curl localhost:4150/ap-display/switch_view &
+repeat = 3
+end
+
+begin
+prog = irexec
+button = right
+config = DISPLAY=:0 xset dpms force on; /usr/bin/mpc next & 
+repeat = 0
+end
+
+begin
+prog = irexec
+button = left
+config = DISPLAY=:0 xset dpms force on; /usr/bin/mpc prev
+repeat = 0
+end
