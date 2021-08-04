@@ -54,9 +54,9 @@ printf "[Unit]
 Description=LCD Display Service
 Wants=multi-user.target
 [Service]
-WorkingDirectory=/home/pi/raspdacminilcd/moode/lcd
+WorkingDirectory=${PWD}
 #ExecStartPre=/bin/sleep 10
-ExecStart=/home/pi/raspdacminilcd/moode/lcd/start_lcd
+ExecStart=${PWD}/start_lcd
 StandardOutput=null
 User=root
 Type=simple
