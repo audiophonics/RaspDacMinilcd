@@ -4,7 +4,9 @@ Toolset and sources file used for customizing RPI audio distributions with RaspD
 This repository holds sources and methods for installing the specific hardware found in a RaspDac Mini LCD (display, remote control) and some utilities in a fresh distribution for audio playback on raspberry pi. 
 
 ## Currently supported : 
- 
+
+### This repository is not up to date for Volumio 3. However a working image is already available [here](https://www.audiophonics.fr/en/blog-diy-audio/23-start-up-evo-raspdac-rasptouch-raspdac-mini-with-a-pre-configured-image.html#rdmlcd), please be patient, the sources will be updated shortly. 
+
 ### Volumio & moOde
 * Installation of LCD Display
 * Installation of IR remote
