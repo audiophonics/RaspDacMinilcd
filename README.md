@@ -43,3 +43,15 @@ sudo reboot
 ## Tested on  : 
 - moOde Audio 8.02 & RPI 4B Revision 1.5
 
+## Dev notes : 
+- It remains relatively easy to overriding the localui like the previous version of RDMLCD did. 
+- If you want to work on a custom display interface powered by HTML,JS & CSS,  you can disable / enable my graphics renderer by running ```sudo systemctl disable rdmlcd```  / ```sudo systemctl enable rdmlcd```.
+- Then whatever happens in startx will be routed to the LCD display as long as rdmlcdfb is enabled as a service.
+
+
+
+## Credits 
+- The only reason why the RDMLCD can display a fast smooth image is because of the incredible [fbcp-ili9341](https://github.com/juj/fbcp-ili9341) driver.
+- [node-canvas](https://github.com/Automattic/node-canvas) is used for graphics rendering. It replaces the previous method of overriding the built-in chromium/localui and allows faster boot time.
+- Some additionnal stability is achieved thanks to [node-rpio](https://github.com/jperkin/node-rpio).
+
