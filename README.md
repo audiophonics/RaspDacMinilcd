@@ -9,6 +9,12 @@
 - If this set of file is not working on your moOde Audio version, you should try to rebuild the patch from source (soon to be uploaded).
 - This has not been tested on moOde < 8
 
+## Important note :
+I removed the chromium layer from the display and replaced it by a nodejs generated canvas that writes directly to the main framebufffer. 
+Because of this you no longer have to enable localUI in http://moode/sys-config.php.
+In fact you should not enable Local UI display **at all** since both process will then try to take over the display and thus produce a glitchy image.
+
+
 ## How to install : 
 - Connect to your RDM LCD through SSH and run the following commands : 
 ```
