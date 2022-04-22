@@ -4,7 +4,7 @@
 
 
 ## Usage : 
-- You should use this on a fresh moOde Audio 8+ image.
+- You should use this on a fresh moOde Audio 8+ image. Such image can be downloaded from [here](https://moodeaudio.org/#download).
 - Most DAC functions and MPD are pre-configured with this script. Still could not find a reliable to set Hardware volume without doing too much black magic reboot, so you might want to configure that in http://moode/snd-config.php (2nd entry).
 - If this set of file is not working on your moOde Audio version, you should try to rebuild the patch from source (soon to be uploaded).
 - This has not been tested on moOde < 8
