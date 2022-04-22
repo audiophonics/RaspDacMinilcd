@@ -5,9 +5,11 @@ This repository holds sources and methods for installing the specific hardware f
 
 ## Currently supported : 
 
-### This repository is not up to date for Volumio 3. However a working image is already available [here](https://www.audiophonics.fr/en/blog-diy-audio/23-start-up-evo-raspdac-rasptouch-raspdac-mini-with-a-pre-configured-image.html#rdmlcd), please be patient, the sources will be updated shortly. 
+### This repository is not up to date for Volumio 3+. However a working image is already available [here](https://www.audiophonics.fr/en/blog-diy-audio/23-start-up-evo-raspdac-rasptouch-raspdac-mini-with-a-pre-configured-image.html#rdmlcd), please be patient, the sources will be updated shortly. 
 
-### Volumio & moOde
+### This branch is not up to date for moOde 8+. Go [here](https://github.com/audiophonics/RaspDacMinilcd/tree/moode) to patch moOde 8 for your RDMLCD
+
+### Volumio <3 & moOde <8
 * Installation of LCD Display
 * Installation of IR remote
 * Installation of aptswi (Tiny web interface with some custom option. It is also used as a server to pass the LCD display template to a Chromium instance).
