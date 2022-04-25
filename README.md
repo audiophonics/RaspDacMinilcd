@@ -44,7 +44,7 @@ sudo reboot
 - moOde Audio 8.02 & RPI 4B Revision 1.5
 
 ## Dev notes : 
-- It remains relatively easy to overriding the localui like the previous version of RDMLCD did. 
+- It remains relatively easy to override the localui like the previous version of RDMLCD did. 
 - If you want to work on a custom display interface powered by HTML,JS & CSS,  you can disable / enable my graphics renderer by running ```sudo systemctl disable rdmlcd```  / ```sudo systemctl enable rdmlcd```.
 - Then whatever happens in startx will be routed to the LCD display as long as rdmlcdfb is enabled as a service.
 
