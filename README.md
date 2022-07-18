@@ -14,6 +14,7 @@ I removed the chromium layer from the display and replaced it by a nodejs genera
 Because of this you no longer have to enable localUI in http://moode/sys-config.php.
 
 In fact **you should not enable Local UI display at all** since both process will then write to the display at once, thus producing a glitchy image.
+When starting, the display renderer will attempt to stop the localui service as well, so the issue will only arise if you try to start the localui service while the display is already running.  
 
 
 ## How to install : 
