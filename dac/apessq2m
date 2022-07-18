@@ -1,0 +1,58 @@
+#!/bin/sh
+card_id=`aplay -l | grep "I-Sabre Q2M DAC" | sed 's/card \([0-9+]\).*$/\1/'`
+
+if test -z "$card_id"
+then
+	echo "I-Sabre Q2M DAC not installed"
+	exit 1
+else 
+	current_input=`amixer sget -c $card_id 'I2S/SPDIF Select' | grep Item0: | sed 's/^.*\?\x27\(.*\)\x27/\1/g'`
+	current_filter=`amixer sget -c $card_id 'FIR Filter Type'  | grep Item0: | sed 's/^.*\?\x27\(.*\)\x27/\1/g'`
+	case $1 in
+	"")
+		echo $card_id
+	;;
+	help)
+		printf "USAGE
+		
+\033[32m apessq2m \033[0m print the DAC ID in ALSA 
+\033[32m apessq2m get_input \033[0m print the current input (SPDIF, I2S) 
+\033[32m apessq2m toggle_input \033[0m toggle the current input between SPDIF & I2S 
+\033[32m apessq2m get_filter \033[0m print the current reconstruction filter
+\033[32m apessq2m next_filter \033[0m cycles between available reconstruction filters
+________________________________
+
+" 
+	;;
+	get_input)
+		echo $current_input
+	;;
+	toggle_input)
+		if [ "$current_input" = "I2S" ]
+		then 
+			amixer sset -c $card_id 'I2S/SPDIF Select' SPDIF > /dev/null
+			curl -m 0.5 localhost:4153/input=SPDIF > /dev/null 2>&1 &
+			echo SPDIF
+		else 
+			amixer sset -c $card_id 'I2S/SPDIF Select' I2S > /dev/null
+			curl -m 0.5 localhost:4153/input=I2S > /dev/null 2>&1 &
+			echo I2S
+		fi
+	;;
+	get_filter)
+        echo $current_filter
+	;;
+	next_filter)
+		filters=`amixer sget -c $card_id 'FIR Filter Type' | grep Items | sed 's/^.*Items:[^\x27]*\x27\(.*\)\x27/\1/; s/\x27 \x27/\n/g'` 
+		length=`echo "$filters" | wc -l`
+		current_index=`echo "$filters" | grep -wxn "$current_filter" | sed 's/:.*$//'`
+		next_index=`echo "($current_index) % ($length) +1" | bc`
+		next_filter=`echo "$filters" | sed "$next_index""q;d"`
+		amixer sset -c $card_id 'FIR Filter Type' "$next_filter"  > /dev/null
+		urlsafenewfilter=`echo $next_filter | sed -e "s/ /%20/g"`
+		curl -m 0.5 "localhost:4153/filter_change=$urlsafenewfilter" > /dev/null 2>&1 &
+		echo $next_filter
+	;;
+	esac
+fi
+exit 0

@@ -1,0 +1,32 @@
+#/bin/sh
+
+
+case $1 in
+"")
+
+printf "
+ USAGE
+\033[32m rdmlcdfb \033[0m print this help message
+\033[32m rdmlcdfb pre \033[0m set adequate resolution for RDM LCD display and prevent console cursor from blinking.
+\033[32m rdmlcdfb post \033[0m blank display
+________________________________
+" 
+
+
+;;
+
+"pre")
+sh -c 'echo 0 > /sys/class/graphics/fbcon/cursor_blink' > /dev/null 2>&1
+sh -c 'echo 0 > /sys/class/vtconsole/vtcon1/bind'  > /dev/null 2>&1
+dd if=/dev/zero of=/dev/fb0 > /dev/null 2>&1
+fbset -xres 320 -yres 240 -vxres 320 -vyres 240 
+fbset -depth 8 && fbset -depth 32
+;;
+
+"post")
+dd if=/dev/zero of=/dev/fb0 > /dev/null 2>&1
+sudo rdmlcd blank > /dev/null 2>&1
+;;
+
+
+esac 

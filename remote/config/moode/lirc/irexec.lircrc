@@ -1,0 +1,94 @@
+begin
+prog = irexec
+button = playright
+config = /usr/bin/mpc seek +3 &
+delay = 2
+repeat = 3
+end
+
+begin
+prog = irexec
+button = playleft
+config = /usr/bin/mpc seek -3 & 
+delay = 2
+repeat = 3
+end
+
+begin
+prog = irexec
+button = play
+config = /usr/bin/mpc toggle & 
+repeat = 0
+end
+
+begin
+prog = irexec
+button = input
+config = /usr/local/bin/apessq2m toggle_input & 
+repeat = 0
+end
+
+begin
+prog = irexec
+button = volplus
+config = /var/www/vol.sh -up 3 & 
+delay = 2
+repeat = 3
+end
+
+begin
+prog = irexec
+button = volminus
+config = /var/www/vol.sh -dn 3 & 
+delay = 2
+repeat = 3
+end
+
+begin
+prog = irexec
+button = poweroff
+config = sudo poweroff
+repeat = 0
+end
+
+begin
+prog = irexec
+button = mute
+config = /var/www/vol.sh mute & 
+repeat = 0
+end
+
+begin
+prog = irexec
+button = option
+config = /usr/local/bin/apessq2m next_filter &
+repeat = 3
+end
+
+begin
+prog = irexec
+button = up
+config =  curl localhost:4153/switch_view &
+repeat = 3
+end
+
+begin
+prog = irexec
+button = down
+config = curl localhost:4153/switch_view &
+repeat = 3
+end
+
+begin
+prog = irexec
+button = right
+config = /usr/bin/mpc next & 
+repeat = 0
+end
+
+begin
+prog = irexec
+button = left
+config = /usr/bin/mpc prev
+repeat = 0
+end
