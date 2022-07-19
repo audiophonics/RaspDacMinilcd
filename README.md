@@ -7,7 +7,8 @@ This branch holds all the code used to package an installer for the RaspDacMini 
   * moOde Audio 64-bit 
 
 
-* Before you do anything, make sure you are using the LCD version of the RaspDacMini. None of this will work on the previous OLED version (see picture below if you have any doubt). 
+## Read this before you do anything with this code
+* Make sure you are using the LCD version of the RaspDacMini. None of this will work on the previous OLED version (see picture below if you have any doubt). 
 
   ![pick the right device](https://www.audiophonics.fr/img/cms/Images/Blog/distributions_custom/lcd_oled.jpg) 
 
