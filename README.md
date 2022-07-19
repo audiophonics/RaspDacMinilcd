@@ -42,9 +42,9 @@ sudo reboot
     - You can disable / enable the display by running ```sudo systemctl disable rdmlcd rdmlcdfb```  / ```sudo systemctl enable rdmlcd rdmlcdfb```
 - Installation LIRC from apt. Creation a systemd service to run LIRC & IREXEC during boot.
 
-## Tested on  : 
-- moOde Audio 8.02 & RPI 4B Revision 1.5
-
+## Last tested on  : 
+- moOde Audio 8.1.2 2022-07-08 & RPI 4B Revision 1.5
+- moOde Audio 8.1.2 2022-07-08 & RPI 4B Revision 1.4
 
 ## Credits 
 - The only reason why the RDMLCD can display a fast smooth image is because of the incredible [fbcp-ili9341](https://github.com/juj/fbcp-ili9341) driver.
