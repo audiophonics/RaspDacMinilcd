@@ -2,6 +2,10 @@
 
 This branch holds all the code used to package an installer for the RaspDacMini LCD. 
 
+## Currently supported : 
+  * moOde Audio 32-bit 
+  * moOde Audio 64-bit 
+
 
 * Before you do anything, make sure you are using the LCD version of the RaspDacMini. None of this will work on the previous OLED version (see picture below if you have any doubt). 
 
@@ -10,7 +14,7 @@ This branch holds all the code used to package an installer for the RaspDacMini 
   If you need to work on a version with an OLED display, you should [go there instead](https://github.com/audiophonics/RaspDacMini). 
 
 
-* If you are a regular user with a RaspDacMini LCD who seeks to have the display & remote working after a first install, this is **not** the right place for you. The easy and fast way to achieve this is to use a [precompiled patch archive](https://github.com/audiophonics/RaspDacMinilcd/patch_compiler/README.md#precompiled-archives).
+* If you are a regular user with a RaspDacMini LCD who seeks to have the display & remote working after a first install, this is **not** the right place for you. The easy and fast way to achieve this is to use a [precompiled patch archive](https://github.com/audiophonics/RaspDacMinilcd/blob/patch_compiler/README.md#precompiled-archives).
 
 * The point of this repo is to provide a way to rebuild the customizations if for whatever reason you lost the display / remote / SPDIF support after a software update and the pre-built patch does not work anymore on the newly updated distribution. You can also use this branch as a work basis when porting the display to new hardware (the fbcp-ili9341 driver used here supports others LCD display).
 
@@ -59,7 +63,7 @@ The goal of this patch compiler is to provide an archive containing everything n
   *  We then provide an [installation script](fbcp-ili9341/installation) for the distribution which : 
      * extracts the tar archive in the right path
      * installs all required dependencies (especially in moOde Audio which can now run either 32-bit or 64-bit architectures)
-     * edit either /boot/config.txt or /boot/userconfig.txt to set hdmi_group / hdmi_mode / hdmi_cvt
+     * edits either /boot/config.txt or /boot/userconfig.txt to set hdmi_group / hdmi_mode / hdmi_cvt
      * configures the system to start the display when the RaspDacMiniLCD boots
    * Along the binaries, we provide a short [*sh* script](fbcp-ili9341/rdmlcdfb) exposed as a shell command ```rdmlcdfb``` in charge of running the whole set of commands needed to have the display framebuffer running properly and hiding the console at boot.
 <br><br>
