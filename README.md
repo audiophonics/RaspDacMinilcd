@@ -1,7 +1,3 @@
-# This documentation is a work in progress
-You should not do anything with this branch yet
-
-
 # Patch compiler for RaspDacMini LCD
 
 This branch holds all the code used to package an installer for the RaspDacMini LCD. 
