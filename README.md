@@ -46,7 +46,7 @@ sudo reboot
 
 If something seems to be not working as it should, here are some tips to see what is going on. 
 
-There are 4 main components that make the RDMLCD work : 
+There are [4 main components](https://github.com/audiophonics/RaspDacMinilcd/tree/patch_compiler#anatomy-of-a-fully-customized-rdmlcd) that make the RDMLCD work: 
 * The display driver 
     * You can test it by running ```sudo systemctl status rdmlcdfb```
     * Should print *active (running)* in green.
