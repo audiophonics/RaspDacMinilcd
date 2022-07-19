@@ -42,6 +42,30 @@ sudo reboot
     - You can disable / enable the display by running ```sudo systemctl disable rdmlcd rdmlcdfb```  / ```sudo systemctl enable rdmlcd rdmlcdfb```
 - Installation LIRC from apt. Creation a systemd service to run LIRC & IREXEC during boot.
 
+## Troubleshooting
+
+If something seems to be not working as it should, here are some tips to see what is going on. 
+
+There are 4 main components that make the RDMLCD work : 
+* The display driver 
+    * You can test it by running ```sudo systemctl status rdmlcdfb```
+    * Should print *active (running)* in green.
+    * You can restart it by running ```sudo systemctl restart rdmlcdfb```
+* The display renderer
+    * You can test it by running ```sudo systemctl status rdmlcd```
+    * Should print *active (running)* in green.
+    * You can restart it by running ```sudo systemctl restart rdmlcd```
+* The DAC layer 
+    * You can test it by running ```apessq2m```
+    * Should print the soundcard ID (any number including 0) if correctly installed.
+* The Remote interface
+    * You can test it by running ```sudo systemctl status lircd irexec```
+    * Both services should print *active (running)* in green.
+    
+    *Remember that the DAC and the Remote are not fully installed until you have rebooted at least once after applying this patch. Those tests will fail if you run them before rebooting.*.
+ 
+ 
+
 ## Last tested on  : 
 - moOde Audio 8.1.2 2022-07-08 & RPI 4B Revision 1.5
 - moOde Audio 8.1.2 2022-07-08 & RPI 4B Revision 1.4
