@@ -104,7 +104,7 @@ wget https://github.com/audiophonics/RaspDacMinilcd/archive/patch_compiler.zip
 unzip patch_compiler.zip
 
 # Enter directory
-cd patch_compiler
+cd RaspDacMinilcd-patch_compiler
 
 # install build dependencies (this command is interactive and will ask for a target distribution)
 sh install_dependencies.sh 
