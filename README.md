@@ -10,7 +10,7 @@ This branch holds all the code used to package an installer for the RaspDacMini 
   If you need to work on a version with an OLED display, you should [go there instead](https://github.com/audiophonics/RaspDacMini). 
 
 
-* If you are a regular user with a RaspDacMini LCD who seeks to have the display & remote working after a first install, this is **not** the right place for you. The easy and fast way to achieve this is to use a [precompiled patch archive](https://github.com/audiophonics/RaspDacMinilcd/edit/patch_compiler/README.md#precompiled-archives).
+* If you are a regular user with a RaspDacMini LCD who seeks to have the display & remote working after a first install, this is **not** the right place for you. The easy and fast way to achieve this is to use a [precompiled patch archive](https://github.com/audiophonics/RaspDacMinilcd/patch_compiler/README.md#precompiled-archives).
 
 * The point of this repo is to provide a way to rebuild the customizations if for whatever reason you lost the display / remote / SPDIF support after a software update and the pre-built patch does not work anymore on the newly updated distribution. You can also use this branch as a work basis when porting the display to new hardware (the fbcp-ili9341 driver used here supports others LCD display).
 
