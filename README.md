@@ -73,7 +73,7 @@ The goal of this patch compiler is to provide an archive containing everything n
   * it also uses [node-rpio](https://github.com/jperkin/node-rpio) to execute basic SPI commands such as blanking the display before poweroff. This has to be compiled as well.
   * the blur effect on the back CoverArt is achieved thanks to [stackblur-canvas](https://github.com/flozz/StackBlur) which does not require compiling.
   * all the components (including modules designed for polling the streamer according to the specific distributions) are compiled, downloaded and packaged as a ready-to-use nodejs App in [this script](lcd/build.sh). We then provide an [installation script](lcd/installation) meant to extract the files at the right place, install dependencies and configure the graphic renderer to run at boot. <br><br>
-  *Note that many of the module used in this nodeJS app have to be packaged as compiled binaries since we want to avoid using buidling toolchains on the RDMLCD, so we only make a partial use of NPM to achieve this since it does not support that paradigm well).*
+  *Note that many of the modules used in this nodeJS app have to be packaged as compiled binaries since we want to avoid using buidling toolchains on the RDMLCD, so we only make a partial use of NPM to achieve this since it does not support that paradigm well).*
 <br><br>
         
 * *The LIRC + IREXEC* section mainly consists of providing a script for automatic installation of LIRC & IREXEC binaries on the distribution through package manager. It also creates an archive containing the configuration files to allow LIRC to work with the remote we provided with the RDMLCD. All of this is done here. 
