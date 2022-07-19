@@ -57,7 +57,7 @@ There are 4 main components that make the RDMLCD work :
     * You can restart it by running ```sudo systemctl restart rdmlcd```
 * The DAC layer 
     * You can test it by running ```apessq2m```
-    * Should print the soundcard ID (any number including 0) if correctly installed.
+    * Should print the soundcard ID (any number, including 0) if correctly installed.
 * The Remote interface
     * You can test it by running ```sudo systemctl status lircd irexec```
     * Both services should print *active (running)* in green.
