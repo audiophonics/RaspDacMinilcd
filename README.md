@@ -76,7 +76,7 @@ The goal of this patch compiler is to provide an archive containing everything n
   *Note that many of the modules used in this nodeJS app have to be packaged as compiled binaries since we want to avoid using buidling toolchains on the RDMLCD, so we only make a partial use of NPM to achieve this since it does not support that paradigm well).*
 <br><br>
         
-* *The LIRC + IREXEC* section mainly consists of providing a script for automatic installation of LIRC & IREXEC binaries on the distribution through package manager. It also creates an archive containing the configuration files to allow LIRC to work with the remote we provided with the RDMLCD. All of this is done here. 
+* *The LIRC + IREXEC* section mainly consists of providing a script for automatic installation of LIRC & IREXEC binaries on the distribution through package manager. It also creates an archive containing the configuration files to allow LIRC to work with the remote we provided with the RDMLCD. All of this is done [here](remote/installation). 
 <br><br>    
 
 * *The Shell wrapper for DAC / ALSA* includes :
