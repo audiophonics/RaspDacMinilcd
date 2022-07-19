@@ -5,9 +5,10 @@
 
 ## Usage : 
 - You should use this on a fresh moOde Audio 8+ image. Such image can be downloaded from [here](https://moodeaudio.org/#download).
-- Most DAC functions and MPD are pre-configured with this script. Still could not find a reliable to set Hardware volume without doing too much black magic reboot, so you might want to configure that in http://moode/snd-config.php (2nd entry).
-- If this set of file is not working on your moOde Audio version, you should try to rebuild the patch from source (soon to be uploaded).
-- This has not been tested on moOde < 8
+- Both 32-bit and 64-bit versions are supported. However, since 32-bit is now considered as legacy code, I strongly suggest you used the 64-bit version.
+- Most DAC functions and MPD are pre-configured with this script. I still could not find a reliable to set Hardware volume without doing too much black magic reboot, so you might want to configure that in http://moode/snd-config.php (2nd entry).
+- If this set of file is not working on your moOde Audio version, you may try to [rebuild the patch from source](https://github.com/audiophonics/RaspDacMinilcd/tree/patch_compiler).
+- This has not been tested on moOde < 8.
 
 ## Important note :
 I removed the chromium layer from the display and replaced it by a nodejs generated canvas that writes directly to the main framebufffer. 
@@ -44,12 +45,6 @@ sudo reboot
 
 ## Tested on  : 
 - moOde Audio 8.02 & RPI 4B Revision 1.5
-
-## Dev notes : 
-- It remains relatively easy to override the localui like the previous version of RDMLCD did. 
-- If you want to work on a custom display interface powered by HTML,JS & CSS,  you can disable / enable my graphics renderer by running ```sudo systemctl disable rdmlcd```  / ```sudo systemctl enable rdmlcd```.
-- Then whatever happens in startx will be routed to the LCD display as long as rdmlcdfb is enabled as a service.
-
 
 
 ## Credits 
