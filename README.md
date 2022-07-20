@@ -87,6 +87,7 @@ The goal of this patch compiler is to provide an archive containing everything n
 
 # How to use this toolset to build a patch
 * First you need to boot a RDMLCD with a fresh install of the distribution for which you intend to build the patch.
+  * If you are targeting a build for moOde Audio, you should use the 64-bit version which will yeld a patch compatible with both 32-bit and 64-bit versions. You *can* build on a 32-bit legacy moOde but the resulting binaries will only run on 32-bit moOde distributions.
 * SSH into the RDMLCD 
 * Download this branch as an archive to get the source files
 * Extract the archive
