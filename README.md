@@ -111,7 +111,7 @@ cd RaspDacMinilcd-patch_compiler
 sh install_dependencies.sh 
 
 # build all components as a single archive (this command is interactive and will ask for a target distribution)
-sh build_all.sh moode
+sh build_all.sh
 ```
 I left in this repo a couple scripts to be used as build tools. At the root of this project are the following scripts : 
   * **```install_dependencies.sh```** : installing toolchains and dependencies for compiling all the RDMLCD components.
