@@ -24,9 +24,16 @@ case "$target_distribution" in
 	arch=`dpkg --print-architecture`
 	if [ "$arch" = "arm64" ];
 		then	
-			echo "since we are on a 64-bit arch, we'll also fetch dependencies to cross-compile 32-bit and enable legacy version to run this patch"
-			sudo apt-get --no-install-recommends install -y gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf;
-	fi;
+		echo "since we are on a 64-bit arch, we'll also fetch dependencies to cross-compile 32-bit and enable legacy version to run this patch"
+		sudo apt-get --no-install-recommends install -y gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf;
+		if [ ! -f /lib/arm-linux-gnueabihf/libbcm_host.so ] 
+		then 
+			 sudo apt-get --no-install-recommends install -y libc6:armhf
+			 sudo apt-get --no-install-recommends install -y libraspberrypi0:armhf 
+			 libbmc=`ls /lib/arm-linux-gnueabihf/libbcm_host.so* | tail -1`
+			 sudo ln $libbmc /lib/arm-linux-gnueabihf/libbcm_host.so 
+		fi
+	fi
 ;;
 'volumio')
 	echo "Unfortunately this script is not compatible with Volumio yet"
