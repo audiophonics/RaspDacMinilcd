@@ -44,7 +44,7 @@ then
 		 apt-get update
 		 apt-get --no-install-recommends install -y libc6:armhf
 		 apt-get --no-install-recommends install -y libraspberrypi0:armhf
-		 ln /lib/arm-linux-gnueabihf/libbcm_host.so.0 /lib/arm-linux-gnueabihf/libbcm_host.so 
+		 test -f /lib/arm-linux-gnueabihf/libbcm_host.so || ln /lib/arm-linux-gnueabihf/libbcm_host.so.0 /lib/arm-linux-gnueabihf/libbcm_host.so 
 	fi
 	
 fi
