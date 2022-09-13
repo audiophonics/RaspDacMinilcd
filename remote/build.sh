@@ -17,8 +17,13 @@ tar -cvhzf rdmlcdremote.tar.gz ./lirc
 tar -cvf rdmlcdremote.tar installrdm_remote.sh rdmlcdremote.tar.gz
 mkdir -p $current_folder/release 
 mv rdmlcdremote.tar $current_folder/release/rdm_"$target_distribution"_remote.tar 
-
-
+;;
+'volumio')
+chown -R volumio $current_folder/release/
+;;
+"plugin_vol" )
+mkdir -p $current_folder/release 
+cp -r config/volumio/lirc $current_folder/release/
 ;;
 'picore')
 

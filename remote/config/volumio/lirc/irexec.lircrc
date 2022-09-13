@@ -1,48 +1,77 @@
 begin
 prog = irexec
-button = KEY_ENTER
+button = stop
+config = /usr/local/bin/volumio stop & 
+end
+
+begin
+prog = irexec
+button = playright
 config = /usr/local/bin/volumio seek plus & 
-end
-
-begin
-prog = irexec
-button = KEY_UP
-config = /usr/local/bin/volumio volume plus & 
 delay = 2
 repeat = 3
 end
 
 begin
 prog = irexec
-button = KEY_DOWN
-config = /usr/local/bin/volumio volume minus & 
+button = playleft
+config = /usr/local/bin/volumio seek minus & 
 delay = 2
 repeat = 3
 end
 
 begin
 prog = irexec
-button = KEY_RIGHT
+button = right
 config = /usr/local/bin/volumio next & 
 end
 
 begin
 prog = irexec
-button = KEY_LEFT
+button = left
 config = /usr/local/bin/volumio previous & 
 end
 
 begin
 prog = irexec
-button = KEY_MENU
-config = /usr/local/bin/apessq2m toggle_input & 
-end
-
-begin
-prog = irexec
-button = KEY_PLAY
+button = pause
 config = /usr/local/bin/volumio toggle & 
 delay = 2
 repeat = 3
 end
 
+begin
+prog = irexec
+button = play
+config = /usr/local/bin/volumio toggle & 
+delay = 2
+repeat = 3
+end
+
+begin
+prog = irexec
+button = input
+config = /usr/local/bin/apessq2m toggle_input & 
+repeat = 0
+end
+
+begin
+prog = irexec
+button = option
+config = /usr/local/bin/apessq2m next_filter &
+repeat = 3
+end
+
+begin
+prog = irexec
+button = up
+config =  curl localhost:4153/switch_view &
+repeat = 3
+end
+
+begin
+prog = irexec
+button = down
+config = curl localhost:4153/switch_view &
+repeat = 3
+end

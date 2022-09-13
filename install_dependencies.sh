@@ -30,13 +30,25 @@ case "$target_distribution" in
 		then 
 			 sudo apt-get --no-install-recommends install -y libc6:armhf
 			 sudo apt-get --no-install-recommends install -y libraspberrypi0:armhf 
+			 
+			 sudo apt-get --no-install-recommends install -y libnode-dev:armhf 
+			 libnode=`ls /lib/arm-linux-gnueabihf/libnode.so* | tail -1`
+			 sudo apt --no-install-recommends install -y npm 
+			 sudo ln -f $libnode /lib/arm-linux-gnueabihf/libnode.so 
+			 
+			 
+			 
 			 libbmc=`ls /lib/arm-linux-gnueabihf/libbcm_host.so* | tail -1`
-			 sudo ln $libbmc /lib/arm-linux-gnueabihf/libbcm_host.so 
+			 sudo ln -f $libbmc /lib/arm-linux-gnueabihf/libbcm_host.so 
 		fi
 	fi
+	
 ;;
 'volumio')
-	echo "Unfortunately this script is not compatible with Volumio yet"
+	sh nodebin/install.sh volumio
+	sudo apt update -y
+	sudo apt --no-install-recommends install -y build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev git cmake
+	
 ;;
 'picore')
 	echo "Unfortunately this script is not compatible with piCore yet"

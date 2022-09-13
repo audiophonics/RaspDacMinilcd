@@ -1,6 +1,22 @@
 #!/bin/sh
 
+target_distribution="$1"
 startingdirectory=`pwd`
+
+
+case "$target_distribution" in 
+'moode')
+	nodebin=`which node`
+	nodegypbin=`which node-gyp`
+;;
+
+'volumio'|'plugin_vol')
+	nodebin=`which node12`
+	nodegypbin=`which node-gyp12`
+;;
+esac 
+ 
+
 
 echo "BUILDING RPIO NATIVE ADDON"
 
@@ -9,15 +25,12 @@ rm -r rpio64 > /dev/null 2>&1
 
 echo "	...Fetching source"
 set -e
-wget `npm view rpio dist.tarball`  > /dev/null 2>&1
-mkdir rpio32
+wget `npm view rpio dist.tarball`  
+mkdir -p rpio32
 
-tar -xvf rpio-*.tgz -C rpio32 > /dev/null 2>&1
+tar -xvf rpio-*.tgz -C rpio32 
 
-# workaround for messy Debian patch
-sudo sed -i "s/'-lnode'//" /usr/share/nodejs/node-gyp/addon.gypi
-
-echo "BUILDING RPIO NATIVE ADDON FOR 32BIT ARM (moOde Audio Legacy)"
+echo "BUILDING RPIO NATIVE ADDON FOR 32BIT ARM (moOde Audio Legacy & Volumio)"
 
 arch=`dpkg --print-architecture`
 
@@ -27,10 +40,13 @@ unset CXX
 unset LINK
 export CC=`ls /usr/bin/arm-linux-gnueabihf-gcc | head`
 export CXX=`ls /usr/bin/arm-linux-gnueabihf-g++ | head`
-node-gyp --arch=arm clean
-node-gyp --arch=arm configure
+$nodegypbin --arch=arm clean
+$nodegypbin --arch=arm configure
+if [ "$target_distribution" = "moode" ]
+then
 sed -i 's/usr\/lib\/aarch64-linux-gnu/usr\/lib\/arm-linux-gnueabihf/' build/rpio.target.mk
-node-gyp --arch=arm build
+fi
+$nodegypbin --arch=arm build
 cd $startingdirectory
 mv rpio32/package/ $startingdirectory/utils/rpio32
 rm -r rpio32
@@ -47,9 +63,9 @@ then
 	unset CC 
 	unset CXX
 	unset LINK
-	node-gyp --arch=arm clean
-	node-gyp --arch=arm configure
-	node-gyp --arch=arm build
+	$nodegypbin --arch=arm clean
+	$nodegypbin --arch=arm configure
+	$nodegypbin --arch=arm build
 	cd $startingdirectory
 	mv rpio64/package/ $startingdirectory/utils/rpio64
 	rm -r rpio64

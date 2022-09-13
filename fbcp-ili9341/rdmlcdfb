@@ -25,7 +25,7 @@ fbset -depth 8 && fbset -depth 32
 
 "post")
 dd if=/dev/zero of=/dev/fb0 > /dev/null 2>&1
-sudo rdmlcd blank > /dev/null 2>&1
+exit 0
 ;;
 
 

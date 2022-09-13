@@ -4,15 +4,18 @@
 	Auteur : Olivier Schwach
 
 */
-
+/*
+const SegfaultHandler = require('segfault-handler');
+SegfaultHandler.registerHandler('crash.log');
+*/
 // Vérifier qu'on est bien dans une distrib connue.
 const distro = process.argv[2],
-supported_distributions = ["moode"];
+supported_distributions = ["moode", "volumio"];
 if(!distro || !supported_distributions.includes(distro) ){
 	console.warn("Unknown target distribution : ",distro, "\nHere are the supported distributions : ", supported_distributions.join() );
 	process.exit();
 }
-
+ 
 var targetBuffer = process.argv[3];
 if(!targetBuffer) targetBuffer = "/dev/fb0";
 
@@ -24,6 +27,10 @@ switch(distro){
 		const { moode_listener } = require("./utils/moodelistener.js");
 		streamer = new moode_listener();
 	break;
+	case("volumio"):
+		const { volumio_listener } = require("./utils/volumiolistener.js");
+		streamer = new volumio_listener();
+	break;
 }
 
 const fs = require("fs"); 
@@ -32,10 +39,10 @@ const os = require("os");
 const http = require("http");
 
 if(os.arch() === "arm64"){
-	var { Image, createCanvas, loadImage, DOMMatrix  } = require('./utils/canvas64');
+	var { Image, createCanvas, loadImage, DOMMatrix, ImageData  } = require('./utils/canvas64');
 }
 else{
-	var { Image, createCanvas, loadImage, DOMMatrix  } = require('./utils/canvas32');
+	var { Image, createCanvas, loadImage, DOMMatrix, ImageData  } = require('./utils/canvas32');
 }
 
 const canvas = createCanvas(320, 240 );
@@ -49,9 +56,6 @@ const StackBlur = require('stackblur-canvas');
 const tempcanvas = createCanvas(320, 240);
 const tempctx = tempcanvas.getContext("2d" );
 
-const { scrollAnimation  } = require('./utils/scroll_animation.js');
-const scroll_animation = new scrollAnimation();
-scroll_animation.plotScrollEase(80, 0, -215, 0.8);
 
 const { panicMeter } = require('./utils/panicmeter.js');
 const panicmeter = new panicMeter();
@@ -69,9 +73,10 @@ var cachedRasterizedMainText = null;
 var textScrollerX = 0;
 var refresh_track = 0;
 var cover = {
-	imgdata : null,
+	imageData : new ImageData(320,240),
 	height : null,
-	width : null
+	width : null,
+	src : null
 };
 var mainMatrix =  new DOMMatrix([1,0,0,1,0,0]);
 var busy = false;
@@ -83,8 +88,12 @@ var dacFilter = "?";
 
 
 var TIME_BEFORE_DEEPSLEEP = 900000; // in ms
+var UPDATE_INTERVAL = 20; // in ms
+var SCROLLTIME = 1600; // in ms
 
-
+const { scrollAnimation  } = require('./utils/scroll_animation.js');
+const scroll_animation = new scrollAnimation();
+scroll_animation.plotScrollEase(SCROLLTIME / UPDATE_INTERVAL, 0, -215, 0.8);
 
 function leadingZero(a,b){
 	if(!a){
@@ -96,7 +105,10 @@ function leadingZero(a,b){
 }
 
 // Methodes de dessin
-function updateCover(img){
+function updateCover(img,src){
+	
+	/* si la cover précédente est longue à charger, il est possible que ce bout de code s'exécute alors que la piste a déjà changée, on ne met pas à jour si c'est le cas */
+	if(src && src !== cover.src) return;
 	
 	let vratio = canvas.height / img.height, 
 	canvasBoxData = [0, 0 ,canvas.width, canvas.height]; // pour éviter de tout réecrire à chaque fois. 
@@ -105,32 +117,38 @@ function updateCover(img){
 	cover.height = canvas.height;
 	cover.x = ( canvas.width - cover.width )/2;
 	cover.y = ( canvas.height - cover.height )/2;
-	
 	tempctx.clearRect(0,0,320,240);
 	tempctx.drawImage(img,...canvasBoxData); // On dessine l'image étirée dans toute la largeur du canvas secondaire
 	let blur_imgdata = tempctx.getImageData(...canvasBoxData);	// On capture l'image étirée
 	blur_imgdata = StackBlur.imageDataRGBA(blur_imgdata, ...canvasBoxData , 50); // On floute l'image étirée
-	
 	tempctx.putImageData(blur_imgdata, 0, 0 );	// On réinjecte l'image étirée floutée dans le canvas secondaire
 	tempctx.drawImage(img, cover.x,cover.y, cover.width, cover.height);	// On dessine l'image de base (non-floutée) au centre par dessus
 	cover.imageData = tempctx.getImageData(...canvasBoxData); // On capture l'ensemble 
+
 	
 }
 
 // à utiliser pour fournir son propre objet image indépendant de ce que le streamer trouve dans son implémentation native
 function directUpdateCover(imageObject){
-	cover.imageData = null;
+	cover.imageData = new ImageData(320,240);
+	cover.src = null;
 	if(!imageObject) return;
 	let canvasImage =  new Image();
-	if(imageObject && imageObject.data ) canvasImage.src = imageObject.data;
-	updateCover(canvasImage);
+	if( imageObject && imageObject.data ) canvasImage.src = imageObject.data;
+	updateCover( canvasImage, false );
 }
 
 
 function updateVolumeIcon(ctx, x,y,w,h, level ){
-	ctx.clearRect(x,y+1,w+2,h-1);
+	ctx.clearRect(x-2,y-4,w+6,h+6);
+	
 	ctx.strokeStyle = "white";
 	ctx.fillStyle = "white";
+	//ctx.fillStyle = "pink";
+	//ctx.fillRect(x-2,y-4,w+6,h+6);
+	
+	
+	
 
 	let y_grid = h/4,
 		x_grid = w/20,
@@ -148,7 +166,7 @@ function updateVolumeIcon(ctx, x,y,w,h, level ){
 	ctx.lineTo( px(3)	, py(1) );
 	ctx.closePath();
 	ctx.fill();
-	
+	ctx.beginPath();
 	// on dessine des petites ondes sonores en fonction du volume (interface + sympa) 
 	
 	ctx.lineWidth = 2;
@@ -223,6 +241,7 @@ function updateMetaDataText(txt, x, y ,h){
 	scene_ctx.fillText( txt, x, y );
 }
 
+
 streamer.on("volumeChange", (data)=>{
 	updateVolumeIcon(scene_ctx, 260,2, 20, 12, data);
 	scene_ctx.clearRect(285, 0 , 320-285, 16);
@@ -239,13 +258,13 @@ streamer.on("line4", (data)=>{	updateMetaDataText(data, 7, 370, 20) } );
 streamer.on("line5", (data)=>{	updateMetaDataText(data, 7, 395, 20) } );
 streamer.on("line6", (data)=>{	updateMetaDataText(data, 7, 420, 20) } );
 streamer.on("coverChange", (data)=>{
-	cover.imageData = null;
-	loadImage( data ).then(updateCover)
+	if(data === cover.src) return; // ne pas recharger l'image actuelle
+	cover.imageData = new ImageData(320,240);
+	cover.src = data;
+	loadImage( data ).then((img)=>{updateCover(img,data)})
 	.catch(	err => { console.warn('Erreur lors du chargement de la couverture.', err)	} ); // il faudrait un fallback cover ici
 });
 streamer.on("directCoverChange", directUpdateCover);
-
-
 streamer.on("trackChange", (data)=>{
 	should_scroll = false;
 	main_text = streamer.formatedMainString;
@@ -295,10 +314,10 @@ streamer.on("seekChange", (data)=>{
 	scene_ctx.clearRect(0,207,320,3);
 	scene_ctx.fillRect(0,207, parseInt( 320 * data.ratiobar ) ,3);
 });
-
+/*
 ctx.fillStyle = "black";
 ctx.fillRect(0, 0 ,320, 240);
-
+*/
 
 function get_filter(){
     cp.exec(`apessq2m get_filter`,handle);
@@ -424,7 +443,6 @@ function server( req,res ){
 
 // Composition finale de l'image
 function Vdraw(){
-	
 	//console.time("draw");
 	let verticalOffset = 0;
 	if(dacInput !== "SPDIF\n"){ // Si SPDIF actif, on affiche un texte fixe au milieu donc on évite de tout redessiner 
@@ -453,19 +471,19 @@ function Vdraw(){
 				ctx.putImageData(cover.imageData, 0, 0); 
 			}
 		}
-		
+
 		// Barre du haut de l'écran	s
 		// petit arrière-plan noir semi-transparent pour la lisibilité
 		ctx.fillStyle = "rgba(0,0,0,0.5)";			
 		ctx.fillRect(0,0,320, 18);
-				
-		// page 2 
+
+		// page 2
 		ctx.fillStyle = "rgba(0,0,0,0.7)";
 		ctx.fillRect(0, 240 ,320, 240);
 
 		ctx.setTransform(mainMatrix);
 		ctx.drawImage(scene, 0, 0-verticalOffset , 320 , 240, 0, 0 , 320,240);
-		
+
 	}	
 	else{
 		// Barre du haut de l'écran	
@@ -496,25 +514,24 @@ function updateFB(){
 function fbcb(err,data){
 	busy = false;
 	if ( err ) console.warn( err, data );
-	//console.timeEnd("write");	
 }
 
 
 
 fs.readFile("config.json",(err,data)=>{
-	
 	if(err) console.log("Cannot read config file. Using default settings instead.");
 	else{
 		try { 
 			data = JSON.parse( data.toString() );
-			TIME_BEFORE_DEEPSLEEP = (data && data.deep_sleep_after) ? data.deep_sleep_after  * 1000 : TIME_BEFORE_DEEPSLEEP
+			TIME_BEFORE_DEEPSLEEP = (data && data.sleep_after.value) ? data.sleep_after.value  * 1000 : TIME_BEFORE_DEEPSLEEP
 		
 		} catch(e){
 			console.log("Cannot read config file. Using default settings instead.");
 		}
 	}
+	
 	streamer.watchIdleState(TIME_BEFORE_DEEPSLEEP);
-	var bufwrite_interval = setInterval(updateFB, 20)
+	var bufwrite_interval = setInterval(updateFB, UPDATE_INTERVAL)
 
 	streamer.on("iddleStart", function(){
 		clearInterval(bufwrite_interval);
@@ -525,7 +542,7 @@ fs.readFile("config.json",(err,data)=>{
 	});
 	streamer.on("iddleStop", function(){
 		clearInterval(bufwrite_interval);
-		bufwrite_interval = setInterval(updateFB, 20)
+		bufwrite_interval = setInterval(updateFB, UPDATE_INTERVAL)
 	});
 
 

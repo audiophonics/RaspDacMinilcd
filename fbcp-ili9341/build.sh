@@ -15,7 +15,7 @@ cp -a "$current_folder"/patch/* fbcp-ili9341
 cd fbcp-ili9341 
 mkdir build 
 cd build
-
+mkdir -p $current_folder/release 
 specificToolChain="";
 arch=`dpkg --print-architecture`
 if [ "$arch" = "arm64" ];
@@ -24,17 +24,24 @@ fi
 cmake "$specificToolChain"  -DARMV8A=ON -DILI9341=ON -DSPI_BUS_CLOCK_DIVISOR=20 -DGPIO_TFT_DATA_CONTROL=27 -DGPIO_TFT_RESET_PIN=24 -DDISPLAY_ROTATE_180_DEGREES=ON -DSTATISTICS=0 .. 
 make 
 chmod +x fbcp-ili9341
-cp $current_folder/rdmlcdfb ./rdmlcdfb
+cp -a  $current_folder/rdmlcdfb ./rdmlcdfb
 
 case "$target_distribution" in 
-'moode') cp $current_folder/installation/moode.sh installrdm_lcdfb.sh
+'moode') cp -a  $current_folder/installation/moode.sh installrdm_lcdfb.sh
 ;;
+'volumio') cp -a  $current_folder/installation/volumio.sh installrdm_lcdfb.sh
+;;
+'plugin_vol')
+	chmod +xX rdmlcdfb
+	cp -a  fbcp-ili9341 $current_folder/release
+	cp -a  rdmlcdfb $current_folder/release 
+exit 0
 esac 
 
 
 tar -cvhzf rdmlcdfb.tar.gz fbcp-ili9341 rdmlcdfb
 tar -cvhf rdmlcdfb.tar rdmlcdfb.tar.gz installrdm_lcdfb.sh
-mkdir -p $current_folder/release 
+
 mv rdmlcdfb.tar $current_folder/release/rdm_"$target_distribution"_lcdfb.tar
 
 cd $current_folder

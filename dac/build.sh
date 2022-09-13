@@ -42,6 +42,14 @@ tar -cvhzf rdmdac.tar.gz apessq2m
 tar -cvf rdmdac.tar installrdmlcd_dac.sh rdmdac.tar.gz volumio_autoconf
 mkdir -p $current_folder/release 
 mv rdmdac.tar $current_folder/release/rdm_"$target_distribution"_dac.tar 
+chown -R volumio $current_folder/release 
+;;
+
+"plugin_vol" )
+chmod +xX apessq2m
+mkdir -p "$current_folder"/release 
+cp apessq2m "$current_folder"/release/ 
+chown -R volumio $current_folder/release 
 ;;
 
 moode)
