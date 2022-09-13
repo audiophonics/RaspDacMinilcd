@@ -8,7 +8,7 @@ if [ "$target_distribution" = "" ]
 then 
     read -p "Select the target distribution : moode, volumio, plugin_vol, picore " target_distribution
     case $target_distribution in
-        moode|volumio|picore) 
+        moode|volumio|picore|plugin_vol) 
 			echo $target_distribution 
 			break	;;
        * ) 
