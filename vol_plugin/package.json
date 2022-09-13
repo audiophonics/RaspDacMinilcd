@@ -1,0 +1,26 @@
+{
+	"name": "Audiophonics_RaspDacMiniLcd",
+	"version": "1.0.0",
+	"description": "Hardware configuration & drivers for RaspDacMini LCD",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Olivier Schwach",
+	"license": "ISC",
+	"volumio_info": {
+		"prettyName": "Audiophonics RaspDacMini LCD",
+		"icon": "fa-hdd-o",
+		"plugin_type": "system_hardware"
+	},
+	"dependencies": {
+		"fs-extra": "^0.28.0",
+		"kew": "^0.7.0",
+		"socket.io-client": "^1.7.4",
+		"v-conf": "^1.4.3"
+	},
+	"engines": {
+		"node": ">=14.15.4",
+		"volumio": ">=3"
+	}
+}

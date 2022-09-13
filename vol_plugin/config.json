@@ -1,0 +1,14 @@
+{
+    "sleep_after": {
+        "type": "number",
+        "value": 1200
+    },
+    "remote_active": {
+        "type": "boolean",
+        "value": false
+    },
+    "lcd_active": {
+        "type": "boolean",
+        "value": true
+    }
+}

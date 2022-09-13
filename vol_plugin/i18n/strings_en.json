@@ -1,0 +1,25 @@
+{
+    "NAME": "RDMLCD PLUGIN",
+    "PLUGIN_CONFIGURATION": "RDMLCD",
+    "SAVE": "Save",
+    "UI": {
+        "LCD_SCREENSAVER_DOC": "How long (in seconds) LCD will keep displaying date & time before entering screen saver mode when no track is being played.",
+        "LCD_SCREENSAVER_LABEL": "Delay before screen saver",
+        "LCD_RESTART_LABEL": "Restart LCD display",
+        "LCD_RESTART_DOC": "Use this button to restart  LCD display script.", 
+		"LCD_ENABLE": "Enable LCD Display",
+		"LCD_ENABLE_DOC": "Disable/enable the main display of your RDMLCD",
+		"CONFIG_UPDATE": "Configuration updated.",
+		"CONFIG_NOCHANGE": "Nothing changed in configuration.",
+		"REMOTE_ENABLE": "Enable Remote",
+		"REMOTE_ENABLE_DOC": "Disable/enable the Volumio3 remote layer (playback control). The shutdown function is handled by the board and cannot be disabled.",
+		"REMOTE_DIAGNOSE": "Check remote status",
+		"REMOTE_DIAGNOSE_DOC": "Click here to querry the system and diagnose the remote services if something seems to be not working as expected."
+    },
+
+    "ERRORS": {
+        "SYSTEMD_FAIL": "Failed to start the service for LCD"
+    }
+
+
+}
