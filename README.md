@@ -3,8 +3,10 @@
 This branch holds all the code used to package an installer for the RaspDacMini LCD. 
 
 ## Currently supported : 
-  * moOde Audio 32-bit 
-  * moOde Audio 64-bit 
+  * moOde Audio 8+ 32-bit 
+  * moOde Audio 8+ 64-bit 
+  * Volumio 3+ (with terminal installer)
+  * Volumio 3+ (as plugin)
 
 
 ## Read this before you do anything with this code
@@ -100,19 +102,21 @@ The goal of this patch compiler is to provide an archive containing everything n
 Which translates in code as :
 ```
 # Get the source files
-wget https://github.com/audiophonics/RaspDacMinilcd/archive/patch_compiler.zip
+wget -O patch_compiler.tar.gz https://github.com/audiophonics/RaspDacMinilcd/archive/patch_compiler.tar.gz
 
 # Extract the archive 
-unzip patch_compiler.zip
+tar -xvzf patch_compiler.tar.gz
 
 # Enter directory
 cd RaspDacMinilcd-patch_compiler
 
 # install build dependencies (this command is interactive and will ask for a target distribution)
-sh install_dependencies.sh 
+# When workin on Volumio, this needs sudo.
+uname -a | grep -q volumio && sudo sh install_dependencies.sh volumio ||  sh install_dependencies.sh
 
 # build all components as a single archive (this command is interactive and will ask for a target distribution)
-sh build_all.sh
+uname -a | grep -q volumio && sudo sh build_all.sh || sh build_all.sh
+
 ```
 I left in this repo a couple scripts to be used as build tools. At the root of this project are the following scripts : 
   * **```install_dependencies.sh```** : installing toolchains and dependencies for compiling all the RDMLCD components.
@@ -122,6 +126,17 @@ I left in this repo a couple scripts to be used as build tools. At the root of t
 <br>
 
 If you want to (re)build a single specific component, you can instead go to the corresponding directory and run the ```build.sh``` which will create its own local ***release*** subdirectory.
+
+# Distributions
+## moOde Audio 8+
+If you are targeting a build for moOde Audio, you should use the 64-bit version which will yield a patch compatible with both 32-bit and 64-bit versions. You can build on a 32-bit legacy moOde but the resulting binaries will only run on 32-bit moOde distributions.
+## Volumio 3+
+When building the patch with **```build_all.sh```** command you can pick either ```volumio``` or ```plugin_vol``` as a target.
+  * ```volumio``` will yield an installer for a stand-alone version of this package. It means the resulting scripts will run along (but not within) the main Volumio service and no configuration options will be available from the main Volumio WebUI. This version will try to overwrite the DAC settings during installation.
+  * ```plugin_vol``` will yield a Volumio Plugin with pre-built binaries into the vol_plugin subdirectory. You can either tar the whole directory or run ```volumio plugin package``` to obtain an archive of the plugin. The plugin version allows the user to change / enable some parameters from the Volumio WebUI. However it will not try to apply any automatic configuration for the DAC output and MPD settings (so the user should be the one dealing with that). 
+  
+If you cannot decide whether you need a standalone or a plugin version of this installer for Volumio, use the following rule of thumb : the standalone version is the best option for static systems (rare or no updates) where the user is expected to do as little configuration as possible. On the other hand the plugin version is more robust against system updates and require the user to follow the Volumio configuration wizard. 
+  
 
 
 # Precompiled archives
