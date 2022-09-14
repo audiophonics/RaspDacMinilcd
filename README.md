@@ -28,6 +28,7 @@ tar -xvzf rdmlcd_volumio.tar.gz
 cd RaspDacMinilcd-volumio
 
 sudo sh install_rdm_volumio.sh
+
 ```
 - Display should turn on after a couple minutes.
 - Remote and DAC need a reboot to be fully working.
