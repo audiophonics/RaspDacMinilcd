@@ -144,6 +144,7 @@ If you cannot decide whether you need a standalone or a plugin version of this i
 # Precompiled archives
 Before you attempt doing anything with this branch, you should try a precompiled patch. Pick the correct distribution and follow the instructions given by the link : 
   * [moOde Audio 8+](https://github.com/audiophonics/RaspDacMinilcd/tree/moode)
+  * [Volumio 3+](https://github.com/audiophonics/RaspDacMinilcd/tree/volumio)
   * [moOde Audio <8 and Volumio <3](https://github.com/audiophonics/RaspDacMinilcd/tree/main)
   * The sources for Volumio 3+ are not available yet but you can find a [full working image there](https://www.audiophonics.fr/en/blog-diy-audio/23-start-up-evo-raspdac-rasptouch-raspdac-mini-with-a-pre-configured-image.html#rdmlcd).
     * Actually the Volumio team gave me everything I need to publish Volumio plugins. I am trying to enable this toolset to output a plugin archive instead so I can easily publish and update this whole customization as a plugin, however this process takes ages.
