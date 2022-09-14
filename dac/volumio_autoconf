@@ -1,0 +1,67 @@
+#!/usr/bin/node
+const io = require('/volumio/node_modules/socket.io-client/lib/index.js' ),
+socket = io.connect('http://localhost:3000'),
+seq = [
+	function(){
+		socket.emit("callMethod", {
+		  type: 'controller',
+		  endpoint: 'audio_interface/alsa_controller',
+		  method: 'saveAlsaOptions',
+		  data: {
+			output_device: { value: '0' },
+			i2s: true,
+			i2sid: { value: 'i-sabre-q2m', label: 'Audiophonics I-Sabre ES9028Q2M' }
+		  }
+		});
+	},
+	function(){
+	socket.emit("callMethod", {
+	   type: 'controller',
+	   endpoint: 'music_service/mpd',
+	   method: 'savePlaybackOptions',
+	   data: {
+		 dop: { value: true },
+		 dsd_autovolume: false,
+		 volume_normalization: false,
+		 audio_buffer_size: { value: 2048 },
+		 buffer_before_play: { value: '10%' },
+		 persistent_queue: true,
+		 iso: false,
+		 playback_mode_list: { value: 'continuous'}
+	   }
+	 });
+	},
+	function(){
+	 socket.emit("callMethod", {
+	   type: 'controller',
+	   endpoint: 'audio_interface/alsa_controller',
+	   method: 'saveVolumeOptions',
+	   data: {
+		 mixer_type: { value: 'Hardware' },
+		 mixer: { value: 'Digital' },
+		 volumestart: { value: 'disabled'},
+		 volumemax: { value: '100' },
+		 volumesteps: { value: '10' },
+		 volumecurvemode: { value: 'logarithmic'},
+		 mpdvolume: true
+	   }
+	 });
+	}
+];
+
+var i = 0;
+var log = [];
+
+function over(){
+	console.log("Done");
+	console.log("logs " , log);
+	process.exit();
+}
+
+socket.on("pushToastMessage",(data)=>{
+    i++;
+    log.push(data);
+    if(!seq[i]) return over();
+    seq[i]();
+});
+seq[i]();
