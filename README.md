@@ -137,6 +137,8 @@ When building the patch with **```build_all.sh```** command you can pick either 
   
 If you cannot decide whether you need a standalone or a plugin version of this installer for Volumio, use the following rule of thumb : the standalone version is the best option for static systems (rare or no updates) where the user is expected to do as little configuration as possible. On the other hand the plugin version is more robust against system updates and require the user to follow the Volumio configuration wizard. 
   
+ ## piCore
+ Still a work in progress.
 
 
 # Precompiled archives
